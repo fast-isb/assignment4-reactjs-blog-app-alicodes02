@@ -1,23 +1,46 @@
-import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react';
+import { useEffect } from 'react';
+
+import Navbar from './components/Navbar';
+import Blog from './components/Blog';
+import fetchBlogs from './blogService';
+
+
+
 
 function App() {
+
+  const [blogs, setBlogs] = useState([]);
+
+  useEffect(() => {
+
+    const fetchBlogsData = async () => {
+
+      try {
+        const blogsData = await fetchBlogs();
+        console.log(blogsData);
+        setBlogs(blogsData.blogs);
+      } catch (error) {
+        console.error('Error fetching blogs:', error);
+      }
+    };
+
+    fetchBlogsData();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+    <div>
+      <Navbar/>
+
+      <div className = 'blogs'>
+
+        {blogs.map((blog) => (
+          <Blog key={blog.id} title={blog.title} content={blog.content} />
+        ))}
+
+      </div>
     </div>
   );
 }
