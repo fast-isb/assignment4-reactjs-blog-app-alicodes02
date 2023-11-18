@@ -1,4 +1,4 @@
-![Home Page Screen Shot](screenshots/home_page.png)
+![Home Page Screen Shot](../screenshots/home_page.png)
 
 # Getting Started with Create React App
 
