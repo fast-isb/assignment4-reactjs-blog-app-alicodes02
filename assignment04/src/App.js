@@ -6,9 +6,6 @@ import Navbar from './components/Navbar';
 import Blog from './components/Blog';
 import fetchBlogs from './blogService';
 
-
-
-
 function App() {
 
   const [blogs, setBlogs] = useState([]);
