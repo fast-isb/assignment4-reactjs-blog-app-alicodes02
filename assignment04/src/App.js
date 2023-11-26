@@ -1,42 +1,40 @@
 import './App.css';
-import { useState } from 'react';
-import { useEffect } from 'react';
-
+import { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Blog from './components/Blog';
-import fetchBlogs from './blogService';
+import axios from 'axios';
 
 function App() {
-
   const [blogs, setBlogs] = useState([]);
 
+  const fetchAllBlogs = async () => {
+    try {
+      const response = await axios.get('http://localhost:3000/all-blogs');
+      setBlogs(response.data.blogs);
+      console.log('Fetched All the Blogs Successfully!');
+    } catch (error) {
+      alert('Error Fetching Blogs');
+      console.error('Error fetching blogs:', error);
+    }
+  };
+
   useEffect(() => {
-
-    const fetchBlogsData = async () => {
-
-      try {
-        const blogsData = await fetchBlogs();
-        console.log(blogsData);
-        setBlogs(blogsData.blogs);
-      } catch (error) {
-        console.error('Error fetching blogs:', error);
-      }
-    };
-
-    fetchBlogsData();
-  }, []);
+    fetchAllBlogs();
+  }, []); // Empty dependency array to run the effect only once on mount
 
   return (
-
     <div>
-      <Navbar/>
-
-      <div className = 'blogs'>
-
+      <Navbar />
+      <div className="blogs">
         {blogs.map((blog) => (
-          <Blog key={blog.id} title={blog.title} content={blog.content} ownerName = {blog.ownerName} />
+          <Blog key={blog._id}
+          id={blog._id}
+          title={blog.title}
+          content={blog.content}
+          ownerName={blog.ownerName}
+          comments={blog.comments || []}
+          ratings={blog.ratings} />
         ))}
-
       </div>
     </div>
   );

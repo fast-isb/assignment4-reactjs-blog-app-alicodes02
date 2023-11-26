@@ -1,15 +1,127 @@
 {
-    "Message": "Sign in Successful",
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNlLm11aGFtbWFkYWxpMDFAZ21haWwuY29tIiwiaWF0IjoxNzAwODc5Mzk0LCJleHAiOjE3MDA5MDA5OTR9.2Vduq8FxMuwTOIasY4ZMV4O66ul1i9GRRvIE9k3hINM",
-    "user": {
-        "_id": "65615afb6e80373a779d6a94",
-        "username": "Muhammad Ali",
-        "email": "se.muhammadali01@gmail.com",
-        "password": "12345",
-        "followers": [],
-        "posts": [],
-        "notifications": [],
-        "__v": 0
+  "blogs": [
+    {
+      "_id": "6562c7a93cd5d067ab4faf98",
+      "title": "4",
+      "content": "dsfsdffds",
+      "ownerId": "65615afb6e80373a779d6a94",
+      "ownerName": "Muhammad Ali",
+      "ratings": [
+        {
+          "user": "65615afb6e80373a779d6a94",
+          "rating": 0,
+          "_id": "6562d36f997857ab29c70d13"
+        },
+        {
+          "user": "65615afb6e80373a779d6a94",
+          "rating": 0,
+          "_id": "6562d7d64c04f9cd8f5172e2"
+        },
+        {
+          "user": "65615afb6e80373a779d6a94",
+          "rating": 0,
+          "_id": "6562d7e44c04f9cd8f517307"
+        },
+        {
+          "user": "65615afb6e80373a779d6a94",
+          "rating": 0,
+          "_id": "6562d7e84c04f9cd8f51731b"
+        },
+        {
+          "user": "65615b406e80373a779d6a97",
+          "rating": 0,
+          "_id": "6562d84f4c04f9cd8f517526"
+        }
+      ],
+      "comments": [
+        {
+          "user": "65615afb6e80373a779d6a94",
+          "comment": "kbb",
+          "_id": "6562d582997857ab29c70d88"
+        },
+        {
+          "user": "65615b406e80373a779d6a97",
+          "comment": "fd",
+          "_id": "6562d8524c04f9cd8f51754c"
+        },
+        {
+          "user": "65615b406e80373a779d6a97",
+          "comment": "bdfb",
+          "_id": "6562d8534c04f9cd8f517574"
+        }
+      ],
+      "createdAt": "2023-11-26T04:20:57.858Z",
+      "updatedAt": "2023-11-26T05:32:03.977Z",
+      "__v": 8
+    },
+    {
+      "_id": "6562d0b9997857ab29c70cec",
+      "title": "junaid 69",
+      "content": "davdavcz ",
+      "ownerId": "65615b406e80373a779d6a97",
+      "ownerName": "Junaid Khalid",
+      "ratings": [
+        {
+          "user": "65615afb6e80373a779d6a94",
+          "rating": 5,
+          "_id": "6562d557997857ab29c70d5b"
+        },
+        {
+          "user": "65615afb6e80373a779d6a94",
+          "rating": 0,
+          "_id": "6562d8204c04f9cd8f51733e"
+        },
+        {
+          "user": "65615afb6e80373a779d6a94",
+          "rating": 0,
+          "_id": "6562d8214c04f9cd8f517355"
+        },
+        {
+          "user": "65615afb6e80373a779d6a94",
+          "rating": 0,
+          "_id": "6562d8214c04f9cd8f51736e"
+        },
+        {
+          "user": "65615afb6e80373a779d6a94",
+          "rating": 0,
+          "_id": "6562d8224c04f9cd8f517389"
+        },
+        {
+          "user": "65615b406e80373a779d6a97",
+          "rating": 0,
+          "_id": "6562d8424c04f9cd8f517428"
+        }
+      ],
+      "comments": [
+        {
+          "user": "65615afb6e80373a779d6a94",
+          "comment": "Nice Blog Dear",
+          "_id": "6562d38b997857ab29c70d1f"
+        },
+        {
+          "user": "65615afb6e80373a779d6a94",
+          "comment": "Good",
+          "_id": "6562d545997857ab29c70d47"
+        },
+        {
+          "user": "65615afb6e80373a779d6a94",
+          "comment": "Noice",
+          "_id": "6562d73a4c04f9cd8f5172ab"
+        },
+        {
+          "user": "65615afb6e80373a779d6a94",
+          "comment": "avdlvnl",
+          "_id": "6562d82f4c04f9cd8f5173c3"
+        },
+        {
+          "user": "65615afb6e80373a779d6a94",
+          "comment": "as",
+          "_id": "6562d8324c04f9cd8f5173e2"
+        }
+      ],
+      "createdAt": "2023-11-26T04:59:37.229Z",
+      "updatedAt": "2023-11-26T05:32:45.056Z",
+      "__v": 11
     }
+  ]
 }
-

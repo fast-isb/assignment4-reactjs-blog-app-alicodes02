@@ -21,7 +21,12 @@ const UserHomePage = () => {
     title: "",
     content: "",
   });
+  const [commentData, setCommentData] = useState({
+    comment: "s",
+  });
   const [userBlogs, setUserBlogs] = useState([]);
+  const [allBlogs, setAllBlogs] = useState([]);
+  const [showAllBlogs, setShowAllBlogs] = useState(false);
 
   const handleOpen = () => {
     setOpen(true);
@@ -34,6 +39,13 @@ const UserHomePage = () => {
   const handleInputChange = (e) => {
     setBlogData({
       ...blogData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleCommentInputChange = (e) => {
+    setCommentData({
+      ...commentData,
       [e.target.name]: e.target.value,
     });
   };
@@ -54,33 +66,63 @@ const UserHomePage = () => {
       console.log('Blog added successfully:', response.data);
       alert('Blog added successfully');
       handleClose();
-      fetchUserBlogs();
+      if (showAllBlogs) {
+        fetchAllBlogs();
+      } else {
+        fetchUserBlogs();
+      }
     } catch (error) {
       console.error('Error creating blog post:', error);
       alert('Error creating blog post');
     }
   };
 
+  
   const fetchUserBlogs = async () => {
     try {
       const url = `http://localhost:3000/blogs/${id}`;
       console.log('Fetching user blogs with URL:', url);
-  
+
       const response = await axios.get(url, {
         headers: {
           Authorization: `Bearer ${usertoken}`,
         },
       });
-  
+
       setUserBlogs(response.data);
     } catch (error) {
       console.error('Error fetching user blogs:', error);
     }
   };
-  
+
+  const fetchAllBlogs = async () => {
+    try {
+      const url = `http://localhost:3000/all-blogs`;
+      console.log('Fetching all blogs with URL:', url);
+
+      const response = await axios.get(url);
+
+      setAllBlogs(response.data.blogs);
+    } catch (error) {
+      console.error('Error fetching all blogs:', error);
+    }
+  };
 
   const handleBlogDelete = () => {
-    fetchUserBlogs();
+    if (showAllBlogs) {
+      fetchAllBlogs();
+    } else {
+      fetchUserBlogs();
+    }
+  };
+
+  const toggleShowAllBlogs = () => {
+    setShowAllBlogs(!showAllBlogs);
+    if (showAllBlogs) {
+      fetchUserBlogs();
+    } else {
+      fetchAllBlogs();
+    }
   };
 
   useEffect(() => {
@@ -96,26 +138,47 @@ const UserHomePage = () => {
         <h1>User Homepage</h1>
         <p>Username: {name}</p>
         <p>Email: {mail}</p>
-       {/* Display User's Blogs */}
-      <div>
-        <h2>Your Blogs</h2>
-        <ul>
-        {userBlogs.map((blog) => (
-              <Blog
-                key={blog._id}
-                id={blog._id}
-                title={blog.title}
-                content={blog.content}
-                ownerName={blog.ownerName}
-                usertoken={usertoken}
-                onDelete={handleBlogDelete}
-                onEdit={fetchUserBlogs}
-              />
-            ))}
 
-        </ul>
-      </div>
-        <Fab color="primary" aria-label="add" onClick={handleOpen} className = 'float-add-button'>
+        <Button onClick={toggleShowAllBlogs}>
+          {showAllBlogs ? "Show Your Blogs" : "Show All Blogs"}
+        </Button>
+
+        <div>
+          <h2>{showAllBlogs ? "All Blogs" : "Your Blogs"}</h2>
+          <ul>
+            {showAllBlogs
+              ? allBlogs.map((blog) => (
+                  <Blog
+                  key={blog._id}
+                  id={blog._id}
+                  title={blog.title}
+                  content={blog.content}
+                  ownerName={blog.ownerName}
+                  usertoken={usertoken}
+                  onDelete={handleBlogDelete}
+                  onEdit={fetchAllBlogs}
+                  comments={blog.comments || []}
+                  ratings={blog.ratings} 
+                  />
+                ))
+              : userBlogs.map((blog) => (
+                  <Blog
+                  key={blog._id}
+                  id={blog._id}
+                  title={blog.title}
+                  content={blog.content}
+                  ownerName={blog.ownerName}
+                  usertoken={usertoken}
+                  onDelete={handleBlogDelete}
+                  onEdit={fetchUserBlogs}
+                  comments={blog.comments || []}  // Make sure to pass the comments array
+                  ratings={blog.ratings} 
+                  />
+                ))}
+          </ul>
+        </div>
+
+        <Fab color="primary" aria-label="add" onClick={handleOpen} className="float-add-button">
           <AddIcon />
         </Fab>
       </div>
@@ -124,13 +187,7 @@ const UserHomePage = () => {
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Add a New Blog</DialogTitle>
         <DialogContent>
-          <TextField
-            label="Title"
-            name="title"
-            value={blogData.title}
-            onChange={handleInputChange}
-            fullWidth
-          />
+          <TextField label="Title" name="title" value={blogData.title} onChange={handleInputChange} fullWidth />
           <TextField
             label="Content"
             name="content"
@@ -148,8 +205,6 @@ const UserHomePage = () => {
           </Button>
         </DialogActions>
       </Dialog>
-
-      
     </div>
   );
 };

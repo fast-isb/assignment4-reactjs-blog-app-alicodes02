@@ -11,13 +11,20 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import Rating from '@mui/material/Rating';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 
 export default function Blog(props) {
+  
   const [openEditDialog, setOpenEditDialog] = useState(false);
   const [editData, setEditData] = useState({
     title: props.title,
     content: props.content,
   });
+  const [commentData, setCommentData] = useState({
+    comment: "",
+  });
+  const [rating, setRating] = useState(0);
 
   const handleEditOpen = () => {
     setOpenEditDialog(true);
@@ -34,9 +41,15 @@ export default function Blog(props) {
     });
   };
 
+  const handleCommentInputChange = (e) => {
+    setCommentData({
+      ...commentData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   const handleDelete = async () => {
     try {
-      // Make an API request to delete the blog
       const response = await axios.delete(`http://localhost:3000/delete-blog/${props.id}`, {
         headers: {
           Authorization: `Bearer ${props.usertoken}`,
@@ -45,13 +58,12 @@ export default function Blog(props) {
 
       console.log('Blog deleted successfully:', response.data);
 
-      // Call a function to update the list of blogs in the parent component
       if (props.onDelete) {
         props.onDelete();
       }
     } catch (error) {
       console.error('Error deleting blog:', error);
-      alert('Owner Post Owner can delete the the Post');
+      alert('Owner Post Owner can delete the post');
     }
   };
 
@@ -70,22 +82,72 @@ export default function Blog(props) {
 
       console.log('Blog updated successfully:', response.data);
 
-      // Call a function to update the list of blogs in the parent component
       if (props.onEdit) {
         props.onEdit();
       }
 
-      // Close the edit dialog
       handleEditClose();
     } catch (error) {
       console.error('Error updating blog post:', error);
-      
       alert('Error updating blog post');
     }
   };
 
   const handleEditIconClick = () => {
     handleEditOpen();
+  };
+
+  const handleAddComment = async () => {
+    try {
+      const newComment = {
+        comment: commentData.comment,
+      };
+
+      const response = await axios.post(`http://localhost:3000/comment-blog/${props.id}`, newComment, {
+        headers: {
+          Authorization: `Bearer ${props.usertoken}`,
+        },
+      });
+
+      console.log('Comment added successfully:', response.data);
+      //alert('Comment added successfully');
+      if(props.onEdit) {
+        props.onEdit();
+      }
+      setCommentData({
+        comment: "",
+      });
+    } catch (error) {
+      console.error('Error adding comment:', error);
+      alert('Error adding comment');
+    }
+  };
+
+  const handleRatingChange = (value) => {
+    setRating(value);
+  };
+
+  const handleAddRating = async () => {
+    try {
+      const newRating = {
+        rating,
+      };
+
+      const response = await axios.post(`http://localhost:3000/rate-blog/${props.id}`, newRating, {
+        headers: {
+          Authorization: `Bearer ${props.usertoken}`,
+        },
+      });
+
+      console.log('Rating added successfully:', response.data);
+      //alert('Rating added successfully');
+      if (props.onEdit) {
+        props.onEdit();
+      }
+    } catch (error) {
+      console.error('Error adding rating:', error);
+      alert('Error adding rating');
+    }
   };
 
   return (
@@ -133,6 +195,41 @@ export default function Blog(props) {
           </Button>
         </DialogActions>
       </Dialog>
+
+      {/* Display comments */}
+      <div>
+        <h4>Comments</h4>
+        <ul>
+          {props.comments.map((comment) => (
+            <li key={comment._id}>{comment.comment}</li>
+          ))}
+        </ul>
+        {/* Comment input */}
+        <TextField
+          label="Comment"
+          name="comment"
+          value={commentData.comment}
+          onChange={handleCommentInputChange}
+          fullWidth
+        />
+        <Button onClick={handleAddComment} color="primary">
+          Add Comment
+        </Button>
+      </div>
+
+      {/* Display rating */}
+      <div>
+        <h4>Rating</h4>
+        <Rating
+          name={`rating-${props.id}`}
+          value={rating}
+          onChange={(event, newValue) => handleRatingChange(newValue)}
+        />
+        <IconButton onClick={handleAddRating} color="primary">
+          <ThumbUpIcon />
+          <span>{props.ratings.length}</span>
+        </IconButton>
+      </div>
     </div>
   );
 }

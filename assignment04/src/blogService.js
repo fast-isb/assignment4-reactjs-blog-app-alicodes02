@@ -1,6 +1,6 @@
 const fetchBlogs = async () => {
     try {
-      const response = await fetch('http://localhost:3000/all-blogs');
+      const response = await fetch('http://localhost:3000/blogs');
       const data = await response.json();
 
       const blogsArray = data.blogs;
