@@ -34,7 +34,7 @@ function App() {
       <div className = 'blogs'>
 
         {blogs.map((blog) => (
-          <Blog key={blog.id} title={blog.title} content={blog.content} />
+          <Blog key={blog.id} title={blog.title} content={blog.content} ownerName = {blog.ownerName} />
         ))}
 
       </div>

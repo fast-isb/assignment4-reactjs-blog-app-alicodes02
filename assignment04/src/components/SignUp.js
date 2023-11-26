@@ -46,7 +46,7 @@ export default function SignUp() {
       
         const userData = {
 
-          userName: data.get('name'),
+          username: data.get('name'),
           email: data.get('email'),
           password: data.get('password'),
 

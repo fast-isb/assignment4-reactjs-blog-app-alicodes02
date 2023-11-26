@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
+import UserHomePage from './components/UserHomePage';
 import reportWebVitals from './reportWebVitals';
 
 
@@ -11,6 +12,7 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+
 
 const router = createBrowserRouter([
   {
@@ -26,6 +28,11 @@ const router = createBrowserRouter([
   {
     path: "signup",
     element: <SignUp/>,
+  },
+
+  {
+    path: "userhomepage",
+    element: <UserHomePage/>,
   },
 
   

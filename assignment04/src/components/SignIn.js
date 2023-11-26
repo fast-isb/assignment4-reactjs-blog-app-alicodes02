@@ -42,12 +42,24 @@ export default function SignIn() {
       try {
 
         const response = await axios.post('http://localhost:3000/login', userData);
+        
+        const data = response.data;
     
         console.log(response.data);
 
         setSuccessAlert(true);
+
+        const token = data.token;
+        const userId = data.user._id;
+        const username = data.user.username;
+        const email = data.user.email;
+
+        alert(username);
+
+        console.log('Before navigate:', { userId, username, email });
+
         setTimeout(() => {
-          navigate('/');
+          navigate('/userhomepage', { state: { id: userId, name: username, mail: email, usertoken:token } });
         }, 1000);
         // You can handle the token or any other response data here
       } catch (error) {

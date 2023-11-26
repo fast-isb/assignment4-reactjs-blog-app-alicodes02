@@ -1,0 +1,15 @@
+{
+    "Message": "Sign in Successful",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNlLm11aGFtbWFkYWxpMDFAZ21haWwuY29tIiwiaWF0IjoxNzAwODc5Mzk0LCJleHAiOjE3MDA5MDA5OTR9.2Vduq8FxMuwTOIasY4ZMV4O66ul1i9GRRvIE9k3hINM",
+    "user": {
+        "_id": "65615afb6e80373a779d6a94",
+        "username": "Muhammad Ali",
+        "email": "se.muhammadali01@gmail.com",
+        "password": "12345",
+        "followers": [],
+        "posts": [],
+        "notifications": [],
+        "__v": 0
+    }
+}
+
