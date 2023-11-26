@@ -4,7 +4,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -14,23 +13,6 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Navbar from './Navbar';
 import axios from 'axios';
 import Alert from '@mui/material/Alert';
-
-function Copyright(props) {
-
-  return (
-    
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
-// TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
 
@@ -58,7 +40,7 @@ export default function SignUp() {
       
           console.log('Success:', response.data);
           setSuccessAlert(true);
-          // You can handle the token or any other response data here
+      
         } catch (error) {
 
             setFailAlert(true);
@@ -70,7 +52,7 @@ export default function SignUp() {
             // The request was made but no response was received
             console.error('Error: No response received');
           } else {
-            // Something happened in setting up the request that triggered an Error
+        
             console.error('Error:', error.message);
           }
         }

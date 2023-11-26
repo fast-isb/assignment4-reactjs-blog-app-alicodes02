@@ -16,8 +16,6 @@ import Navbar from './Navbar';
 import Alert from '@mui/material/Alert';
 import { useNavigate } from 'react-router-dom';
 
-// TODO remove, this demo shouldn't need to reset the theme.
-
 const defaultTheme = createTheme();
 
 export default function SignIn() {
@@ -54,14 +52,12 @@ export default function SignIn() {
         const username = data.user.username;
         const email = data.user.email;
 
-        alert(username);
-
         console.log('Before navigate:', { userId, username, email });
 
         setTimeout(() => {
           navigate('/userhomepage', { state: { id: userId, name: username, mail: email, usertoken:token } });
         }, 1000);
-        // You can handle the token or any other response data here
+        
       } catch (error) {
         setFailAlert(true);
         if (error.response) {
@@ -72,7 +68,6 @@ export default function SignIn() {
           // The request was made but no response was received
           console.error('Error: No response received');
         } else {
-          // Something happened in setting up the request that triggered an Error
           console.error('Error:', error.message);
         }
       }
