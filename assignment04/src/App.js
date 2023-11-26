@@ -6,6 +6,9 @@ import axios from 'axios';
 
 function App() {
   const [blogs, setBlogs] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
+
+  
 
   const fetchAllBlogs = async () => {
     try {

@@ -13,9 +13,12 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Rating from '@mui/material/Rating';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import CheckIcon from '@mui/icons-material/Check';
 
 export default function Blog(props) {
-  
+
+  const [isFollowing, setIsFollowing] = useState(false);
   const [openEditDialog, setOpenEditDialog] = useState(false);
   const [editData, setEditData] = useState({
     title: props.title,
@@ -46,6 +49,24 @@ export default function Blog(props) {
       ...commentData,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const handleFollow = async () => {
+    try {
+        const response = await axios.post(`http://localhost:3000/follow/${props.ownerId}`, {}, {
+        headers: {
+          Authorization: `Bearer ${props.usertoken}`,
+        },
+      });
+
+      alert('User followed successfully:');
+
+      setIsFollowing(true);
+
+    } catch (error) {
+      console.error('Error following user:', error);
+      alert('You are already following this user!');
+    }
   };
 
   const handleDelete = async () => {
@@ -110,7 +131,7 @@ export default function Blog(props) {
       });
 
       console.log('Comment added successfully:', response.data);
-      //alert('Comment added successfully');
+
       if(props.onEdit) {
         props.onEdit();
       }
@@ -152,10 +173,19 @@ export default function Blog(props) {
 
   return (
     <div className="card">
+
+      <IconButton
+        style={{ position: 'absolute', top: 5, right: 5 }}
+        color="primary"
+      >
+        {isFollowing ? <CheckIcon color='success'/> : <PersonAddIcon onClick={handleFollow} />}
+      </IconButton>
+
       <div className="card__owner">
         <AccountCircleIcon fontSize="small" />
         <span>{props.ownerName}</span>
       </div>
+
       <h3 className="card__title">{props.title}</h3>
       <p className="card__content">{props.content}</p>
       <div className="card__arrow">

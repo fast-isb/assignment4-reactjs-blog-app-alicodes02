@@ -153,7 +153,9 @@ const UserHomePage = () => {
                   id={blog._id}
                   title={blog.title}
                   content={blog.content}
+                  ownerId = {blog.ownerId}
                   ownerName={blog.ownerName}
+                  userId = {id}
                   usertoken={usertoken}
                   onDelete={handleBlogDelete}
                   onEdit={fetchAllBlogs}
@@ -167,11 +169,13 @@ const UserHomePage = () => {
                   id={blog._id}
                   title={blog.title}
                   content={blog.content}
+                  ownerId = {blog.ownerId}
                   ownerName={blog.ownerName}
+                  userId = {id}
                   usertoken={usertoken}
                   onDelete={handleBlogDelete}
                   onEdit={fetchUserBlogs}
-                  comments={blog.comments || []}  // Make sure to pass the comments array
+                  comments={blog.comments || []}
                   ratings={blog.ratings} 
                   />
                 ))}
